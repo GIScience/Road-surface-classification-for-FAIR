@@ -42,6 +42,9 @@ into one class `paved`.
 
 ## Training data
 
+![scene_distribution](images/scenes_distribution.png)
+
+
 - Trained on a **globally distributed catalogue of scenes from OpenAerialMap**,
   covering most regions of the world with some holes, where no usable scenes were available on OAM.
 - Imagery is mostly **UAV (drone)** captures, with a smaller share of
