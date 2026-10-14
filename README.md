@@ -1,6 +1,6 @@
 # SUSformer — Surface from UAV Scenery
 
-[![License: TODO](https://img.shields.io/badge/license-TODO-lightgrey.svg)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![DOI: TODO](https://img.shields.io/badge/DOI-TODO-lightgrey.svg)]()
 
 > No license or DOI exists yet — badges above are placeholders to fill in
