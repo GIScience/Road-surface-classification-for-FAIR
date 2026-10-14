@@ -1,0 +1,61 @@
+# Patch materialization (scripts/materialize.py -> road_surface_classifier.data.materialize).
+
+seed: 0
+
+data:
+  # Directory holding one subfolder per scene (<scene_id>/<scene_id>.tif + .geojson/.gpkg/.parquet).
+  root: data
+  # Optional second folder for the tifs, same layout as root (e.g. a mounted share). Used when root has no tif for a scene.
+  raster_root: null
+  # Attribute column on the road vector layer holding the hand-assigned label; null cuts every road, unlabelled.
+  label_column: label
+  # Where scripts/materialize.py writes the dataset and PatchDataset reads it -- kept apart from the
+  # scene folders. One folder per version: change the patches: settings, then pick a new name.
+  dataset_dir: datasets/v2_512px_15m
+
+patches:
+  # Ground extent of one (square) patch, in metres.
+  patch_size_m: 15.0
+  # Output raster size of one patch, in pixels.
+  patch_size_px: 512
+  # Bag size follows road length: one patch per this many metres, clamped to [min, max].
+  meters_per_patch: 20.0
+  min_patches_per_road: 2
+  max_patches_per_road: 7
+  n_bags: 5
+  # Patches stay off this fraction of the road at either end.
+  endpoint_margin_fraction: 0.1
+  # The stretch within this distance of a junction is cut out of the comb (patch_size_m / 2 puts the
+  # junction just outside the patch). A road with no stretch left uses its whole usable span instead.
+  junction_clearance_m: 7.5
+  # Random per-patch offsets: sideways off the centre line (metres) and rotation (degrees). There is no
+  # along-road jitter -- the comb's random offset already covers that.
+  lateral_jitter_m: 1.5
+  bearing_jitter_deg: 10.0
+  # A patch with more than this fraction of nodata/fill pixels is re-placed inside its own comb cell,
+  # up to max_attempts_per_patch times; then that slot stays empty in this bag.
+  max_nodata_fraction: 0.1
+  max_attempts_per_patch: 10
+  # Pixel tolerance (0-255) for treating a pixel as nodata fill (near-black/near-white).
+  fill_tolerance: 1
+  # OSM highway=* values left out of the junction network that patch placement stays clear of --
+  # footway/cycleway etc. crossing a road isn't the kind of junction a driving-surface patch cares about.
+  junction_exclude_highway_values:
+    - footway
+    - path
+    - cycleway
+    - steps
+    - pedestrian
+    - corridor
+    - platform
+    - bus_stop
+    - crossing
+    - give_way
+    - stop
+    - traffic_signals
+    - traffic_mirror
+    - street_lamp
+    - milestone
+    - emergency_access_point
+    - construction
+

@@ -1,0 +1,22 @@
+dataset_dir: datasets/v1
+n_folds: 4                  # cross-validation: scenes are dealt into n_folds groups ...
+fold: 0                     # ... and this one (the run id, 0..n_folds-1) is the validation set
+split_seed: null            # shuffles the scenes before dealing; null keeps sorted order (fold 0 = every 4th)
+val_scenes: null            # explicit list of validation scene ids, overrides the three above
+backbone: dinov3            # dinov3 | convnext | efficientnet
+pool: attention             # attention (gated ABMIL) | mean
+epochs: 100
+lr: 1.0e-4                  # peak of the OneCycle schedule (built up over the frozen epochs)
+layer_decay: 0.9            # each backbone layer gets this times the lr of the one above (1.0: one lr for all)
+weight_decay: 0.05          # AdamW; norms, biases, position/cls tokens and the attention pool get none
+ema_decay: 0.995            # EMA of the weights (~200 steps = ~3 epochs at batch 32), used for val and checkpoints (null: off)
+freeze_epochs: 5            # backbone frozen (head only) for the first n epochs
+label_smoothing: 0.1
+stable_epochs: 10           # last n epochs train on complete, unaugmented bags
+patience: 25                # early stopping: epochs without a val_loss or train_loss improvement
+batch_size: 32              # bags per step, their patches go through the backbone together
+accumulate_grad_batches: 1  # steps per optimizer update: batch_size x this = bags per update
+num_workers: 4              # DataLoader processes, at most the job's CPU cores - 1
+log_dir: lightning_logs     # TensorBoard runs and checkpoints
+plot_bags: 4                # fixed validation bags explained during and after training
+plot_every: 10              # progress plots every n epochs
