@@ -84,24 +84,33 @@ exactly where along a road a photo happens to be taken.
 
 ## How we test reliability
 
-### TODO
-
 We check how SUSformer's accuracy holds up under less-than-ideal conditions
 — for example, when only one or two usable photos are available for a road,
 or when the imagery is lower resolution than training imagery. This is meant
 to answer: *if my imagery is patchier or coarser than what SUSformer trained
 on, can I still trust its output?*
 
-| condition                        | train acc | val acc | test acc |
-|-----------------------------------|-----------|---------|----------|
-| normal use (full set of photos)   | —         | —       | —        |
-| only 1 photo per road             | —         | —       | —        |
-| only 2 photos per road            | —         | —       | —        |
-| lower-resolution imagery (mild)   | —         | —       | —        |
-| lower-resolution imagery (severe) | —         | —       | —        |
+Numbers below are macro-balanced accuracy, mean ± std over 5-fold
+cross-validation, each fold's score computed on its held-out
+validation scenes:
 
-No results have been published yet — this table will be filled in once we
-release numbers alongside the checkpoint.
+| condition                         | accuracy        |
+|------------------------------------|-----------------|
+| normal use (full set of photos)    | 96.5% ± 0.7%    |
+| only 1 photo per road              | 92.9% ± 0.8%    |
+| only 2 photos per road             | 94.9% ± 0.6%    |
+| only 4 photos per road             | 96.1% ± 0.7%    |
+| imagery downsampled 2x             | 96.3% ± 1.1%    |
+| imagery downsampled 4x             | 94.4% ± 1.9%    |
+| imagery downsampled 8x             | 91.8% ± 1.7%    |
+| imagery downsampled 16x            | 86.0% ± 2.8%    |
+
+Macro AUROC under normal use: 99.5% ± 0.3%.
+
+Takeaway: SUSformer is fairly robust to having fewer photos per road (even a
+single photo only costs ~3.6pp of accuracy) and to moderate resolution loss,
+but accuracy degrades noticeably once imagery is downsampled 8x or more —
+treat its output with more caution on very low-resolution imagery.
 
 ## Explainability
 
