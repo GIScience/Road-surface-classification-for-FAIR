@@ -2,7 +2,7 @@
 
 [![Code License: MIT](https://img.shields.io/badge/Code_License-MIT-yellow.svg)](LICENSE)
 [![Weights License: DINOv3](https://img.shields.io/badge/Weights_License-DINOv3-blue.svg)](https://github.com/facebookresearch/dinov3/blob/main/LICENSE.md)
-[![DOI: TODO](https://img.shields.io/badge/DOI-TODO-lightgrey.svg)]()
+[![DOI](https://zenodo.org/badge/1418636243.svg)](https://doi.org/10.5281/zenodo.23396797)
 
 SUSformer looks at an aerial image together with a road's geometry 
 and decides whether that segement of road is **paved** or
