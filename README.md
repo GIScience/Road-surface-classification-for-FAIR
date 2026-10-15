@@ -139,7 +139,9 @@ This repository contains two kinds of material that are licensed differently:
 
 - **Source code** (everything under `src/`, `config/`, etc.) is released
   under the [MIT License](LICENSE).
-- **Model weights** (`checkpoints.zip`) are fine-tuned from Meta's
+- **Model weights** (`data/weights/dinov3_encoder.zip`, which ships the
+  DINOv3 License alongside `encoder.pt`, plus `data/weights/head.pt` and
+  `data/replay_bank_2000_features.pt`) are fine-tuned from Meta's
   [DINOv3](https://github.com/facebookresearch/dinov3) ViT-S/16 backbone
   (`vit_small_patch16_dinov3.lvd1689m`, pretrained on LVD-1689M). As a
   derivative of the DINOv3 Materials, the checkpoints are **not** MIT
