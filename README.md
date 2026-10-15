@@ -3,11 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![DOI: TODO](https://img.shields.io/badge/DOI-TODO-lightgrey.svg)]()
 
-> No license or DOI exists yet — badges above are placeholders to fill in
-> once the checkpoint is released.
-
-SUSformer looks at an aerial image together with a road's location (from
-OpenStreetMap) and decides whether that stretch of road is **paved** or
+SUSformer looks at an aerial image together with a road's geometry 
+and decides whether that segement of road is **paved** or
 **unpaved**. It is trained on a globally distributed catalogue of imagery
 scenes from [OpenAerialMap](https://openaerialmap.org) (OAM). 
 Training imagery is mostly captured by drones (UAV),
@@ -32,9 +29,9 @@ into one class `paved`.
 ## Intended use
 
 - A decision-support signal for road/route planning where surface type
-  affects vehicle accessibility — not a survey-grade measurement.
+  affects vehicle accessibility
 - SUSformer **classifies, it does not find roads**: it needs a road's
-  location (from OpenStreetMap) alongside the imagery. If your
+  geometry alongside the imagery. If your
   area of interest isn't well mapped yet, that's a gap to close upstream,
   not something SUSformer solves.
 - Works best on OAM-style drone and high-resolution satellite imagery;
@@ -65,6 +62,16 @@ into one class `paved`.
   compensates for. If you finetune on a new region, expect to re-balance for
   your own label distribution rather than assuming this one transfers.
 
+![pie_chart_per_wb_region](images/pie_chart_per_wb_region.png)
+
+![labels_per_class_and_wb_region](images/labels_per_class_and_wb_region.png)
+
+Most of the labelled scenes are from high-resolution (5cm and below) UAV imagery.
+But also UAV and satellite imagery with a lower resolution were used. See at the distribution
+below for more information.
+
+![resolutions](images/resolutions.png)
+
 ## How the bagging approach works
 
 Rather than judging a road from a single photo, SUSformer looks at several
@@ -75,12 +82,16 @@ By looking at a handful of close-ups per
 segment, and giving more weight to the clearest ones, the model builds a
 more reliable picture than any one image could give on its own.
 
+![patches_examples](images/patches_examples.png)
+
 Each close-up covers a short stretch of road of roughly 15 metres and how
 many close-ups a segment gets scales with its length, typically somewhere
 between 2 and 7. During training, several different sets of close-ups are
 generated per labelled road, so the same segment is seen from slightly
 different positions along its length — making the model less sensitive to
 exactly where along a road a photo happens to be taken.
+
+![patches_with_augmentation](images/patches_with_augmentation.png)
 
 ## How we test reliability
 
@@ -112,19 +123,11 @@ single photo only costs ~3.6pp of accuracy) and to moderate resolution loss,
 but accuracy degrades noticeably once imagery is downsampled 8x or more —
 treat its output with more caution on very low-resolution imagery.
 
-## Explainability
-
-SUSformer can show which part of a photo most influenced a given decision,
-as a heatmap over the image. Before trusting its output on a new region,
-spot-check a sample of these to confirm it's actually looking at the road
-surface rather than surrounding clutter.
-
 ## Examples
 
-No example figures are included yet — representative correct and
-misclassified examples will be added once the checkpoint is released.
+The following examples show predictions of the SUSformer. Brown colours show unpaved
+and blue colours paved predictions. The hue indicates the certainty of the model for this prediction.
 
-## Citation / license
-
-TODO — license and citation details will be added once the checkpoint is
-released.
+![example_1](images/example1.png)
+![example_2](images/example2.png)
+![example_3](images/example3.png)
