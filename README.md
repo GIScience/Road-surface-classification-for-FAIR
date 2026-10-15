@@ -1,6 +1,7 @@
 # SUSformer — Surface from UAV Scenery
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code License: MIT](https://img.shields.io/badge/Code_License-MIT-yellow.svg)](LICENSE)
+[![Weights License: DINOv3](https://img.shields.io/badge/Weights_License-DINOv3-blue.svg)](https://github.com/facebookresearch/dinov3/blob/main/LICENSE.md)
 [![DOI: TODO](https://img.shields.io/badge/DOI-TODO-lightgrey.svg)]()
 
 SUSformer looks at an aerial image together with a road's geometry 
@@ -131,3 +132,60 @@ and blue colours paved predictions. The hue indicates the certainty of the model
 ![example_1](images/example1.png)
 ![example_2](images/example2.png)
 ![example_3](images/example3.png)
+
+## License
+
+This repository contains two kinds of material that are licensed differently:
+
+- **Source code** (everything under `src/`, `config/`, etc.) is released
+  under the [MIT License](LICENSE).
+- **Model weights** (`checkpoints.zip`) are fine-tuned from Meta's
+  [DINOv3](https://github.com/facebookresearch/dinov3) ViT-S/16 backbone
+  (`vit_small_patch16_dinov3.lvd1689m`, pretrained on LVD-1689M). As a
+  derivative of the DINOv3 Materials, the checkpoints are **not** MIT
+  licensed; they are distributed under, and subject to, the
+  [DINOv3 License](https://github.com/facebookresearch/dinov3/blob/main/LICENSE.md).
+  Among other things, the DINOv3 License requires that:
+  - any redistribution of the weights (or further derivatives of them)
+    includes a copy of the DINOv3 License,
+  - use complies with applicable laws, including trade-control laws,
+    and excludes the prohibited end uses listed in the license (e.g.
+    military/warfare, nuclear, espionage, weapons, ITAR-controlled
+    activities),
+  - publications of research performed with the materials acknowledge
+    the use of DINOv3.
+
+  Please read the full DINOv3 License before using or redistributing the
+  model weights.
+
+## Citation
+
+If you use SUSformer or its model weights, please cite the DINOv3 paper
+on which the model is based:
+
+> Siméoni, O., Vo, H. V., Seitzer, M., Baldassarre, F., Oquab, M., Jose, C.,
+> Khalidov, V., Szafraniec, M., Yi, S., Ramamonjisoa, M., Massa, F.,
+> Haziza, D., Wehrstedt, L., Wang, J., Darcet, T., Moutakanni, T.,
+> Sentana, L., Roberts, C., Vedaldi, A., Tolan, J., Brandt, J., Couprie, C.,
+> Mairal, J., Jégou, H., Labatut, P., & Bojanowski, P. (2025).
+> *DINOv3*. arXiv:2508.10104. https://arxiv.org/abs/2508.10104
+
+```bibtex
+@misc{simeoni2025dinov3,
+  title         = {{DINOv3}},
+  author        = {Sim{\'e}oni, Oriane and Vo, Huy V. and Seitzer, Maximilian and
+                   Baldassarre, Federico and Oquab, Maxime and Jose, Cijo and
+                   Khalidov, Vasil and Szafraniec, Marc and Yi, Seungeun and
+                   Ramamonjisoa, Micha{\"e}l and Massa, Francisco and Haziza, Daniel and
+                   Wehrstedt, Luca and Wang, Jianyuan and Darcet, Timoth{\'e}e and
+                   Moutakanni, Th{\'e}o and Sentana, Leonel and Roberts, Claire and
+                   Vedaldi, Andrea and Tolan, Jamie and Brandt, John and
+                   Couprie, Camille and Mairal, Julien and J{\'e}gou, Herv{\'e} and
+                   Labatut, Patrick and Bojanowski, Piotr},
+  year          = {2025},
+  eprint        = {2508.10104},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2508.10104}
+}
+```
